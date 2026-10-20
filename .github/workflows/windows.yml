@@ -7,6 +7,13 @@ on:
 permissions:
   contents: read
 jobs:
+  publication_admission:
+    permissions:
+      contents: read
+      actions: read
+      pull-requests: read
+      checks: read
+    uses: pgextwin/build/.github/workflows/chat-publication-readonly.yml@3df403c22aeb220ebc75632b25a25550a863519c
   windows:
     permissions:
       contents: read
@@ -17,7 +24,7 @@ jobs:
   windows_required:
     name: Windows required summary
     if: ${{ always() }}
-    needs: windows
+    needs: [windows, publication_admission]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -26,4 +33,7 @@ jobs:
         shell: bash
         env:
           MATRIX_RESULT: ${{ needs.windows.result }}
-        run: test "$MATRIX_RESULT" = success
+          ADMISSION_RESULT: ${{ needs.publication_admission.result }}
+        run: |
+          test "$MATRIX_RESULT" = success
+          test "$ADMISSION_RESULT" = success
