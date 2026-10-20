@@ -37,3 +37,16 @@ jobs:
         run: |
           test "$MATRIX_RESULT" = success
           test "$ADMISSION_RESULT" = success
+
+  # Only an immutable auto-candidate workflow_dispatch invokes the existing verifier.
+  candidate_report:
+    name: Verify immutable Windows candidate ZIP, SBOM and Grype
+    if: ${{ always() && github.event_name == 'workflow_dispatch' && startsWith(github.ref, 'refs/heads/auto-candidate/') }}
+    needs: windows
+    permissions:
+      contents: read
+      actions: read
+      issues: write
+    uses: pgextwin/build/.github/workflows/verify-candidate.yml@ecf84241c1c4cd99fab3f964cb309f9c6e2a01f8
+    with:
+      matrix_result: ${{ needs.windows.result }}
