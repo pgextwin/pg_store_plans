@@ -160,7 +160,7 @@ jobs:
       contents: write
       pull-requests: write
       actions: write
-    uses: pgextwin/build/.github/workflows/candidate-update.yml@bcefcfaa2160a0406a391761d31ea8b9fa5763fd
+    uses: pgextwin/build/.github/workflows/candidate-update.yml@c10b13d6a0917910bc5c0b90531f8e82fdebcdea
     with:
       extension_config_path: config/extension.json
       update_watch_path: config/update-watch.json
