@@ -91,7 +91,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: pgextwin/build
-          ref: 16b886b9d06d6f389b369b87ce0c155767697ca0
+          ref: acd6eb28be6d750e89b626fa4ccd4403e1265cd6
           path: .pgextwin-build
           persist-credentials: false
       - name: Set up Python
@@ -128,7 +128,7 @@ jobs:
           --watch-config config/update-watch.json
           --output "$RUNNER_TEMP/update-result.json"
           --watcher-repository pgextwin/build
-          --watcher-sha 16b886b9d06d6f389b369b87ce0c155767697ca0
+          --watcher-sha acd6eb28be6d750e89b626fa4ccd4403e1265cd6
       - name: Publish read-only summary (no Artifact)
         if: steps.fleet.outputs.allowed == 'true'
         run: >-
@@ -146,7 +146,7 @@ jobs:
     permissions:
       contents: read
       issues: write
-    uses: pgextwin/build/.github/workflows/check-extension-updates.yml@16b886b9d06d6f389b369b87ce0c155767697ca0
+    uses: pgextwin/build/.github/workflows/check-extension-updates.yml@acd6eb28be6d750e89b626fa4ccd4403e1265cd6
     with:
       extension_config_path: config/extension.json
       update_watch_path: config/update-watch.json
@@ -160,7 +160,7 @@ jobs:
       contents: write
       pull-requests: write
       actions: write
-    uses: pgextwin/build/.github/workflows/candidate-update.yml@16b886b9d06d6f389b369b87ce0c155767697ca0
+    uses: pgextwin/build/.github/workflows/candidate-update.yml@acd6eb28be6d750e89b626fa4ccd4403e1265cd6
     with:
       extension_config_path: config/extension.json
       update_watch_path: config/update-watch.json
