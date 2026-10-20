@@ -13,7 +13,7 @@ jobs:
       actions: read
       pull-requests: read
       checks: read
-    uses: pgextwin/build/.github/workflows/chat-publication-readonly.yml@c667cefa42df68c9c3bf830adffa451a1d8da9ab
+    uses: pgextwin/build/.github/workflows/chat-publication-readonly.yml@0fa5aee1ec711c2eaf43328514fdb51359359a2c
   windows:
     permissions:
       contents: read
