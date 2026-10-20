@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "kind": "FIRST_RELEASE_PINNED_SOURCE",
+  "repository": "pgextwin/pg_store_plans",
+  "extension": "pg_store_plans",
+  "releasePolicy": "manual-only",
+  "candidateId": "db135c1320937003d9db",
+  "source": {
+    "repository": "ossc-db/pg_store_plans",
+    "ref": "1.10",
+    "version": "1.10",
+    "commit": "e802804d4d2763ad3b32fc8fcf9f218c61cc475f"
+  }
+}
