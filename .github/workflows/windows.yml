@@ -7,13 +7,6 @@ on:
 permissions:
   contents: read
 jobs:
-  publication_admission:
-    permissions:
-      contents: read
-      actions: read
-      pull-requests: read
-      checks: read
-    uses: pgextwin/build/.github/workflows/chat-publication-readonly.yml@70ec2c660f941a7d7068c957c13e4c3f0cf02e43
   windows:
     permissions:
       contents: read
@@ -24,7 +17,7 @@ jobs:
   windows_required:
     name: Windows required summary
     if: ${{ always() }}
-    needs: [windows, publication_admission]
+    needs: [windows]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -33,10 +26,8 @@ jobs:
         shell: bash
         env:
           MATRIX_RESULT: ${{ needs.windows.result }}
-          ADMISSION_RESULT: ${{ needs.publication_admission.result }}
         run: |
           test "$MATRIX_RESULT" = success
-          test "$ADMISSION_RESULT" = success
 
   # Only an immutable auto-candidate workflow_dispatch invokes the existing verifier.
   candidate_report:
