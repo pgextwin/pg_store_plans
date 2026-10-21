@@ -7,6 +7,7 @@ on:
       - .github/workflows/issue75-nonpublishing-signer-proof.yml
 
 # One-shot SHA-pinned Signer only; no Release, Publisher, App, or Secrets.
+# Recheck genuine signer on the protected canonical-name repair push; never publish.
 permissions:
   contents: read
 
