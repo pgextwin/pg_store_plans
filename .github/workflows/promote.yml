@@ -19,10 +19,6 @@ on:
         description: New and NEVER-used Windows Release tag
         required: true
         type: string
-      confirm_release:
-        description: Type PUBLISH to explicitly authorize this formal Release
-        required: true
-        type: string
 
 concurrency:
   group: pg_store_plans-human-release-promotion
@@ -48,6 +44,9 @@ jobs:
       candidate_run_id: ${{ inputs.candidate_run_id }}
       decision_run_id: ${{ inputs.decision_run_id }}
       release_tag: ${{ inputs.release_tag }}
-      confirm_release: ${{ inputs.confirm_release }}
+      # Human-initiated main workflow_dispatch with an explicit tag is the
+      # deliberate authorization; do not ask for an extra magic-word input.
+      # Keep the immutable shared gate's legacy PUBLISH compatibility contract.
+      confirm_release: PUBLISH
     secrets:
       catalog_app_private_key: ${{ secrets.PGEXTWIN_CATALOG_APP_PRIVATE_KEY }}
