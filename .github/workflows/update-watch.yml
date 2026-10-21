@@ -18,7 +18,7 @@ jobs:
     name: Read-only latest 17-fleet success and exact protected main preflight
     permissions:
       contents: read
-    uses: pgextwin/build/.github/workflows/operator-update-auto.yml@39a329fb5e7c7f801eef3a23688fdd76cce8b2ac
+    uses: pgextwin/build/.github/workflows/operator-update-auto.yml@eaac18cb195f21294964b4a132c5cfc754a90b62
     with:
       detector_sha: acd6eb28be6d750e89b626fa4ccd4403e1265cd6
 
