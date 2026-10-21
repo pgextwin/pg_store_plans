@@ -18,7 +18,8 @@ if($LASTEXITCODE -ne 0 -or $sha -cne [string]$c.upstream.commit -or
    $UpstreamVersion -cne [string]$c.upstream.version -or
    $PostgreSqlMajor -notin @(14,15,16,17,18) -or
    $PostgreSqlMinor -notmatch ('^'+$PostgreSqlMajor+'\.')){throw 'Package identity mismatch'}
-$label="$name-$UpstreamVersion-pg$PostgreSqlMajor-windows-x64"
+# Preserve central SHA-pinned upstream ref as exact Release asset name.
+$label="$name-$UpstreamRef-pg$PostgreSqlMajor-windows-x64"
 $distRoot=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot "../../$DistDir"))
 New-Item -Path $distRoot -ItemType Directory -Force | Out-Null
 $stage=Join-Path $distRoot $label
