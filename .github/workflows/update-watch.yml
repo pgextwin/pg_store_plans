@@ -1,10 +1,10 @@
 name: Upstream candidate after verified central daily fleet scan
 
-# Central 00:00 UTC scans all 17; this candidate-only gate runs 03:30 UTC.
+# Central :00 hourly UTC scans all 17; this candidate-only gate runs hourly :30.
 # Formal PUBLISH remains separately authorized and Releases remain disabled.
 on:
   schedule:
-    - cron: "30 3 * * *"
+    - cron: "30 * * * *"
   push:
     branches: [main]
     paths:
@@ -26,7 +26,7 @@ jobs:
     if: github.event_name == 'schedule'
     permissions:
       contents: read
-    uses: pgextwin/build/.github/workflows/operator-update-auto.yml@bd35b7c702f80568b3bdd2cea235bac9930d095f
+    uses: pgextwin/build/.github/workflows/operator-update-auto.yml@0f8aa92b898d0f9cca2dbf45660293445d96ec4c
     with:
       detector_sha: acd6eb28be6d750e89b626fa4ccd4403e1265cd6
 
@@ -37,7 +37,7 @@ jobs:
     permissions:
       contents: read
       issues: write
-    uses: pgextwin/build/.github/workflows/check-extension-updates.yml@acd6eb28be6d750e89b626fa4ccd4403e1265cd6
+    uses: pgextwin/build/.github/workflows/check-extension-updates.yml@0f8aa92b898d0f9cca2dbf45660293445d96ec4c
     with:
       extension_config_path: config/extension.json
       update_watch_path: config/update-watch.json
@@ -51,7 +51,7 @@ jobs:
       contents: write
       pull-requests: write
       actions: write
-    uses: pgextwin/build/.github/workflows/candidate-update.yml@c10b13d6a0917910bc5c0b90531f8e82fdebcdea
+    uses: pgextwin/build/.github/workflows/candidate-update.yml@0f8aa92b898d0f9cca2dbf45660293445d96ec4c
     with:
       extension_config_path: config/extension.json
       update_watch_path: config/update-watch.json
