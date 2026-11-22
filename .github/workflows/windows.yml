@@ -13,7 +13,7 @@ jobs:
       pull-requests: read
       actions: read
       checks: read
-    uses: pgextwin/build/.github/workflows/build-extension.yml@3573ee1c220c04b83b4ad12c5d489288255bdaf0
+    uses: pgextwin/build/.github/workflows/build-extension.yml@windows-ci
     with:
       extension_config_path: config/extension.json
       test_contract_path: config/test-contract.json
@@ -25,12 +25,23 @@ jobs:
     permissions:
       contents: read
     steps:
+      - name: Check out pgextwin build infrastructure at the resolved build SHA
+        if: ${{ needs.windows.outputs.build_sha != '' }}
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: pgextwin/build
+          ref: ${{ needs.windows.outputs.build_sha }}
+          path: .pgextwin-build
       - name: Require success of all maintained PG14-18 Windows jobs
-        shell: bash
         env:
-          MATRIX_RESULT: ${{ needs.windows.result }}
+          WINDOWS_MATRIX_RESULT: ${{ needs.windows.result }}
+          BUILD_SHA: ${{ needs.windows.outputs.build_sha }}
         run: |
-          test "$MATRIX_RESULT" = success
+          if [ -z "$BUILD_SHA" ]; then
+            echo "WINDOWS REQUIRED SUMMARY DENIED: resolved build SHA unavailable" >&2
+            exit 2
+          fi
+          python3 .pgextwin-build/scripts/required_windows_summary.py
 
   # Only an immutable auto-candidate workflow_dispatch invokes the existing verifier.
   candidate_report:
